@@ -2,7 +2,8 @@
 %header.header
   .header-wrapper
     .header-right.header-padding.visible-tablet
-      = link_to t("homepage.index.post_new_listing"), new_listing_path, :class => "new-listing-link", :id => "new-listing-link"
+      - if @current_user && @current_user.agent? && @current_user.listings.count > 2
+        = link_to t("homepage.index.post_new_listing"), new_listing_path, :class => "new-listing-link", :id => "new-listing-link"
 
     .header-right.visible-tablet
       #header-menu-desktop-anchor.header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
@@ -30,8 +31,11 @@
         = link_to login_path, class: "header-text-link header-hover", id: "header-login-link" do
           = t("header.login")
       .header-right
-        = link_to sign_up_path, class: "header-text-link header-hover" do
-          = t("header.signup")
+        = link_to sign_up_path(role: "customer"), class: "header-text-link header-hover" do
+          = t("header.become_a_customer")
+      .header-right
+        = link_to sign_up_path(role: "agent"), class: "header-text-link header-hover" do
+          = t("header.become_a_agent")
 
     .header-left.hidden-tablet
       .header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}

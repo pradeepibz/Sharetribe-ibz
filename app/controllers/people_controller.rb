@@ -42,7 +42,7 @@ class PeopleController < Devise::RegistrationsController
 
   def create
     domain = @current_community ? @current_community.full_url : "#{request.protocol}#{request.host_with_port}"
-    error_redirect_path = domain + sign_up_path
+    error_redirect_path = domain + sign_up_path(params[:person][:role_id])
 
     if params[:person].blank? || params[:person][:input_again].present? # Honey pot for spammerbots
       flash[:error] = t("layouts.notifications.registration_considered_spam")
@@ -74,7 +74,8 @@ class PeopleController < Devise::RegistrationsController
         @person, email = new_person(params, @current_community)
       end
     rescue StandardError => e
-      flash[:error] = t("people.new.invalid_username_or_email")
+      flash[:error] = e
+      # flash[:error] = t("people.new.invalid_username_or_email")
       redirect_to error_redirect_path and return
     end
 
@@ -266,11 +267,14 @@ class PeopleController < Devise::RegistrationsController
 
     person.emails << email
 
+    person.role_id = Role.person_role(initial_params[:person][:role_id]).try(:id)
+
     person.inherit_settings_from(current_community)
 
     if person.save!
       sign_in(resource_name, resource)
     end
+
 
     person.set_default_preferences
     person.preferences["email_from_admins"] = (admin_emails_consent == "on")

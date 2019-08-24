@@ -1242,11 +1242,16 @@ CREATE TABLE `people` (
   `cloned_from` varchar(22) DEFAULT NULL,
   `google_oauth2_id` varchar(255) DEFAULT NULL,
   `linkedin_id` varchar(255) DEFAULT NULL,
+  `confirmation_token` varchar(255) DEFAULT NULL,
+  `confirmed_at` datetime DEFAULT NULL,
+  `confirmation_sent_at` datetime DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
   UNIQUE KEY `index_people_on_username_and_community_id` (`username`,`community_id`) USING BTREE,
   UNIQUE KEY `index_people_on_uuid` (`uuid`),
   UNIQUE KEY `index_people_on_email` (`email`) USING BTREE,
   UNIQUE KEY `index_people_on_facebook_id_and_community_id` (`facebook_id`,`community_id`) USING BTREE,
   UNIQUE KEY `index_people_on_reset_password_token` (`reset_password_token`) USING BTREE,
+  UNIQUE KEY `index_people_on_confirmation_token` (`confirmation_token`),
   KEY `index_people_on_authentication_token` (`authentication_token`) USING BTREE,
   KEY `index_people_on_community_id` (`community_id`) USING BTREE,
   KEY `index_people_on_facebook_id` (`facebook_id`) USING BTREE,
@@ -1256,6 +1261,17 @@ CREATE TABLE `people` (
   KEY `index_people_on_community_id_and_google_oauth2_id` (`community_id`,`google_oauth2_id`),
   KEY `index_people_on_linkedin_id` (`linkedin_id`),
   KEY `index_people_on_community_id_and_linkedin_id` (`community_id`,`linkedin_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roles` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `schema_migrations`;
@@ -2377,6 +2393,9 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20190305112030'),
 ('20190319114719'),
 ('20190319122745'),
-('20190717105844');
+('20190717105844'),
+('20190822100138'),
+('20190823115004'),
+('20190823115157');
 
 

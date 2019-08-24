@@ -4,6 +4,8 @@ ruby '2.6.2'
 
 gem 'rails', '5.2.3'
 
+gem 'libv8', '~> 7.3.492.27.1'
+
 gem 'coffee-rails', '~> 4.2.2'
 gem 'uglifier', '~> 3.2.0'
 
