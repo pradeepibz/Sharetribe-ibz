@@ -42,7 +42,7 @@ class PeopleController < Devise::RegistrationsController
 
   def create
     domain = @current_community ? @current_community.full_url : "#{request.protocol}#{request.host_with_port}"
-    error_redirect_path = domain + sign_up_path(params[:person][:role_id])
+    error_redirect_path = domain + sign_up_path(role: params[:person][:role_id])
 
     if params[:person].blank? || params[:person][:input_again].present? # Honey pot for spammerbots
       flash[:error] = t("layouts.notifications.registration_considered_spam")
