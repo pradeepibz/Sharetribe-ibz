@@ -44,9 +44,6 @@
 #  cloned_from                        :string(22)
 #  google_oauth2_id                   :string(255)
 #  linkedin_id                        :string(255)
-#  confirmation_token                 :string(255)
-#  confirmed_at                       :datetime
-#  confirmation_sent_at               :datetime
 #  role_id                            :integer
 #
 # Indexes
@@ -55,7 +52,6 @@
 #  index_people_on_community_id                       (community_id)
 #  index_people_on_community_id_and_google_oauth2_id  (community_id,google_oauth2_id)
 #  index_people_on_community_id_and_linkedin_id       (community_id,linkedin_id)
-#  index_people_on_confirmation_token                 (confirmation_token) UNIQUE
 #  index_people_on_email                              (email) UNIQUE
 #  index_people_on_facebook_id                        (facebook_id)
 #  index_people_on_facebook_id_and_community_id       (facebook_id,community_id) UNIQUE

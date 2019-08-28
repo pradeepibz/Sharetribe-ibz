@@ -8,6 +8,16 @@ class InfosController < ApplicationController
     @selected_left_navi_link = "about"
   end
 
+  def leadership
+    @selected_tribe_navi_tab = "leadership"
+    @selected_left_navi_link = "leadership"
+  end
+
+  def blog
+    @selected_tribe_navi_tab = "blog"
+    @selected_left_navi_link = "blog"
+  end
+
   def how_to_use
     @selected_tribe_navi_tab = "about"
     @selected_left_navi_link = "how_to_use"

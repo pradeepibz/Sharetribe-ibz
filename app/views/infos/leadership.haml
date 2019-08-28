@@ -1,0 +1,16 @@
+
+- content_for :title, "Leadership"
+
+- content_for :title_header do
+  %h1= "Leadership"
+
+.about-section
+  = render :layout => "layouts/mercury_editable_page", :locals => { :content_type => "about_page_content" } do
+    - if @community_customization && @community_customization.about_page_content
+      - content = @community_customization.about_page_content.html_safe
+    - else
+      - content = render :partial => "default_about_page"
+
+    - content_for :meta_description, StringUtils.first_words(strip_tags(content.html_safe))
+
+    - content

@@ -408,6 +408,10 @@ Rails.application.routes.draw do
         get :terms
         get :privacy
         get :news
+        get :leadership
+        get :blog
+        get :pricing
+        get :categories
       end
     end
     resource :terms do

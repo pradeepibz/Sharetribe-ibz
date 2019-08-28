@@ -28,23 +28,68 @@
 
     - unless logged_in
       .header-right
-        = link_to login_path, class: "header-text-link header-hover", id: "header-login-link" do
-          = t("header.login")
+        .header-menu-container.toogle-menu.toggle.hidden{data: {toggle: '#header-login-toggle-menu', 'toggle-position' => 'absolute'}}
+          .header-menu-toggle-container.toggle-header-container
+            %span.visible-tablet-inline
+              = "Login"
+        #header-login-toggle-menu.toggle-menu.header-toggle-menu-menu.hidden
+          = link_to login_path, id: "header-login-link" do
+            = "Service Provider"
+          = link_to login_path, id: "header-login-link2" do
+            = "Customer"
       .header-right
-        = link_to sign_up_path(role: "customer"), class: "header-text-link header-hover" do
-          = t("header.become_a_customer")
-      .header-right
-        = link_to sign_up_path(role: "agent"), class: "header-text-link header-hover" do
-          = t("header.become_a_agent")
+        .header-menu-container.toogle-menu.toggle.hidden{data: {toggle: '#header-join-toggle-menu', 'toggle-position' => 'absolute'}}
+          .header-menu-toggle-container.toggle-header-container
+            %span.visible-tablet-inline
+              = "Join"
+        #header-join-toggle-menu.toggle-menu.header-toggle-menu-menu.hidden
+          = link_to sign_up_path(role: "customer") do
+            = t("header.become_a_customer")
+          = link_to sign_up_path(role: "agent") do
+            = t("header.become_a_agent")
 
-    .header-left.hidden-tablet
-      .header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
-        #header-menu-mobile-anchor.header-menu-toggle-container.toggle-header-container
-          = icon_map_tag(icons, "rows", ["header-menu-icon"])
+    / .header-left.hidden-tablet
+    /   .header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
+    /     #header-menu-mobile-anchor.header-menu-toggle-container.toggle-header-container
+    /       = icon_map_tag(icons, "rows", ["header-menu-icon"])
+    /       %span.visible-tablet-inline
+    /         = t("header.menu")
+
+    / = render :partial => "layouts/header_menu", locals: { locale_change_links: locale_change_links, icons: icons}
+
+    .header-right
+      .header-menu-container.toogle-menu.toggle.hidden{data: {toggle: '#header-services-toggle-menu', 'toggle-position' => 'absolute'}}
+        .header-menu-toggle-container.toggle-header-container
           %span.visible-tablet-inline
-            = t("header.menu")
+            = "Services"
 
-    = render :partial => "layouts/header_menu", locals: { locale_change_links: locale_change_links, icons: icons}
+    #header-services-toggle-menu.toggle-menu.header-toggle-menu-menu.hidden
+      = link_to categories_infos_path do
+        Categories List
+
+    .header-right
+      = link_to "Pricing",pricing_infos_path, class: "header-text-link header-hover none-toggle-menu"
+
+    .header-right
+      .header-menu-container.toogle-menu.toggle.hidden{data: {toggle: '#header-company-toggle-menu', 'toggle-position' => 'absolute'}}
+        .header-menu-toggle-container.toggle-header-container
+          %span.visible-tablet-inline
+            = "Company"
+
+    #header-company-toggle-menu.toggle-menu.header-toggle-menu-menu.hidden
+      = link_to about_infos_path do
+        = icon_map_tag(icons, "information", ["icon-with-text"])
+        = t("header.about")
+      = link_to leadership_infos_path do
+        = icon_map_tag(icons, "user", ["icon-with-text"])
+        = "Leadership"
+      = link_to new_user_feedback_path do
+        = icon_map_tag(icons, "feedback", ["icon-with-text"])
+        = "Contact"
+      = link_to blog_infos_path do
+        = icon_map_tag(icons, "building", ["icon-with-text"])
+        = "Blog"
+
 
     -#
       If necessary, the buttons will overlap with the logo. Buttons should be on top, that's

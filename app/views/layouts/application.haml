@@ -60,7 +60,7 @@
                 = yield :title_header
 
       %article.page-content{class: is_homepage && !@big_cover_photo ? 'no-cover-photo' : ''}
-        .wrapper
+        .wrapper{style: "margin-bottom:55px;"}
           = render :partial => "layouts/notifications"
           = yield
           - if display_branding_info?
@@ -85,6 +85,8 @@
 
     - if @custom_footer.try(:display?)
       = render 'layouts/footer'
+    - else
+      = render 'layouts/footer_without_plan'
 
     -# Most of the JavaScript should be for performance reasons at the end of the body
 

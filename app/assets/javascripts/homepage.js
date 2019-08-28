@@ -19,4 +19,15 @@ $(function() {
 
   relocate(768, $("#header-menu-mobile-anchor"), $("#header-menu-desktop-anchor").get(0));
   relocate(768, $("#header-user-mobile-anchor"), $("#header-user-desktop-anchor").get(0));
+  
+});
+$(document).ready(function() {
+  $('.toogle-menu').hover(function(){
+    if (!$(this).hasClass("toggled")){
+      $(this).click();
+    }
+  });
+  $('.none-toggle-menu').hover(function(){
+    $('.toogle-menu.toggled').click();
+  });
 });
