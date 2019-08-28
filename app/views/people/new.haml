@@ -42,7 +42,7 @@
     %h3=t(".signup_with_email")
 
   = form_for @service.person, :url => APP_CONFIG.login_domain.to_s + people_path do |form|
-
+    = form.hidden_field :role_id, value: params[:role]
     -# Invite code
     - if @current_community.join_with_invite_only?
       .inline-label-container

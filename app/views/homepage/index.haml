@@ -164,7 +164,7 @@
         .home-no-listings
           - if params[:q] || params[:category] || params[:share_type] # Some filter in use
             = t(".no_listings_with_your_search_criteria")
-          - else
+          - elsif @current_user && @current_user.agent?
             = t(".no_listings_notification",
                   add_listing_link: link_to(t(".add_listing_link_text"),
                   new_listing_path(ref: "add_listing_link"))).html_safe

@@ -1550,6 +1550,8 @@ en:
     login: "Log in"
     signup: "Sign up"
     menu: Menu
+    become_a_customer: "Become a Customer"
+    become_a_agent: "Become a Agent"
   homepage:
     additional_private_listings_slate:
       additionally_one_private_offer_exists: "Additionally  there is <b>one other offer</b>,"

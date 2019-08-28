@@ -44,6 +44,10 @@
 #  cloned_from                        :string(22)
 #  google_oauth2_id                   :string(255)
 #  linkedin_id                        :string(255)
+#  confirmation_token                 :string(255)
+#  confirmed_at                       :datetime
+#  confirmation_sent_at               :datetime
+#  role_id                            :integer
 #
 # Indexes
 #
@@ -51,6 +55,7 @@
 #  index_people_on_community_id                       (community_id)
 #  index_people_on_community_id_and_google_oauth2_id  (community_id,google_oauth2_id)
 #  index_people_on_community_id_and_linkedin_id       (community_id,linkedin_id)
+#  index_people_on_confirmation_token                 (confirmation_token) UNIQUE
 #  index_people_on_email                              (email) UNIQUE
 #  index_people_on_facebook_id                        (facebook_id)
 #  index_people_on_facebook_id_and_community_id       (facebook_id,community_id) UNIQUE
@@ -127,6 +132,7 @@ class Person < ApplicationRecord
   has_many :starter_transactions, :class_name => "Transaction", :foreign_key => "starter_id", :dependent => :destroy, :inverse_of => :starter
   has_many :payer_stripe_payments, :class_name => "StripePayment", :foreign_key => "payer_id", :dependent => :destroy, :inverse_of => :payer
   has_many :receiver_stripe_payments, :class_name => "StripePayment", :foreign_key => "receiver_id", :dependent => :destroy, :inverse_of => :receiver
+  belongs_to :role, optional: true
 
   deprecate communities: "Use accepted_community instead.",
             community_memberships: "Use community_membership instead.",
@@ -596,6 +602,14 @@ class Person < ApplicationRecord
 
   def custom_field_value_for(custom_field)
     custom_field_values.by_question(custom_field).first
+  end
+
+  def agent?
+    role.present? && role.name == "agent"
+  end
+
+  def customer?
+    role.present? && role.name == "customer"
   end
 
   private
